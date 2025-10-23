@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "udacitydemo"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase_NYC_password": {
+			"value": ""
+		},
+		"ls_AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"ls_AzureSqlDatabase_sales_password": {
+			"value": ""
+		},
+		"AzureSqlDatabase_NYC_properties_typeProperties_server": {
+			"value": "dbnycpayroll202510.database.windows.net"
+		},
+		"AzureSqlDatabase_NYC_properties_typeProperties_database": {
+			"value": "db_nycpayroll"
+		},
+		"AzureSqlDatabase_NYC_properties_typeProperties_userName": {
+			"value": "MartinAdmin"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_server": {
+			"value": "udacitydemo5.sql.azuresynapse.net"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_database": {
+			"value": "MartinSQLPool"
+		},
+		"ls_AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://udacitydemo52025.dfs.core.windows.net/"
+		},
+		"ls_AzureSqlDatabase_sales_properties_typeProperties_server": {
+			"value": "udacitydemo202510.database.windows.net"
+		},
+		"ls_AzureSqlDatabase_sales_properties_typeProperties_database": {
+			"value": "udacitydemo"
+		},
+		"ls_AzureSqlDatabase_sales_properties_typeProperties_userName": {
+			"value": "MartinAdmin"
+		}
+	}
+}

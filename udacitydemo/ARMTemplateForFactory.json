@@ -1,0 +1,2283 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "udacitydemo"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"AzureSqlDatabase_NYC_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSqlDatabase_NYC'"
+		},
+		"ls_AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_AzureDataLakeStorage1'"
+		},
+		"ls_AzureSqlDatabase_sales_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_AzureSqlDatabase_sales'"
+		},
+		"AzureSqlDatabase_NYC_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "dbnycpayroll202510.database.windows.net"
+		},
+		"AzureSqlDatabase_NYC_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "db_nycpayroll"
+		},
+		"AzureSqlDatabase_NYC_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "MartinAdmin"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "udacitydemo5.sql.azuresynapse.net"
+		},
+		"AzureSynapseAnalytics1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "MartinSQLPool"
+		},
+		"ls_AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://udacitydemo52025.dfs.core.windows.net/"
+		},
+		"ls_AzureSqlDatabase_sales_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "udacitydemo202510.database.windows.net"
+		},
+		"ls_AzureSqlDatabase_sales_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "udacitydemo"
+		},
+		"ls_AzureSqlDatabase_sales_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "MartinAdmin"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "SqlDWSink",
+								"allowCopyCommand": true,
+								"copyCommandSettings": {}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "ID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Severity",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Severity",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Start_Time",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Start_Time",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "End_Time",
+											"type": "String"
+										},
+										"sink": {
+											"name": "End_Time",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Start_Lat",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Start_Lat",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Start_Lng",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Start_Lng",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "End_Lat",
+											"type": "String"
+										},
+										"sink": {
+											"name": "End_Lat",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "End_Lng",
+											"type": "String"
+										},
+										"sink": {
+											"name": "End_Lng",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Distance(mi)",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Distance(mi)",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Description",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Description",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Number",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Number",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Street",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Street",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Side",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Side",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "City",
+											"type": "String"
+										},
+										"sink": {
+											"name": "City",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "County",
+											"type": "String"
+										},
+										"sink": {
+											"name": "County",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "State",
+											"type": "String"
+										},
+										"sink": {
+											"name": "State",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Zipcode",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Zipcode",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Country",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Country",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Timezone",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Timezone",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Airport_Code",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Airport_Code",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Weather_Timestamp",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Weather_Timestamp",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Temperature(F)",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Temperature(F)",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Wind_Chill(F)",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Wind_Chill(F)",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Humidity(%)",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Humidity(%)",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Pressure(in)",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Pressure(in)",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Visibility(mi)",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Visibility(mi)",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Wind_Direction",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Wind_Direction",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Wind_Speed(mph)",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Wind_Speed(mph)",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Precipitation(in)",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Precipitation(in)",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Weather_Condition",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Weather_Condition",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Amenity",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Amenity",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Bump",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Bump",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Crossing",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Crossing",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Give_Way",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Give_Way",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Junction",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Junction",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "No_Exit",
+											"type": "String"
+										},
+										"sink": {
+											"name": "No_Exit",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Railway",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Railway",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Roundabout",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Roundabout",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Station",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Station",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Stop",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Stop",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Traffic_Calming",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Traffic_Calming",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Traffic_Signal",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Traffic_Signal",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Turning_Loop",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Turning_Loop",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Sunrise_Sunset",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Sunrise_Sunset",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Civil_Twilight",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Civil_Twilight",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Nautical_Twilight",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Nautical_Twilight",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Astronomical_Twilight",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Astronomical_Twilight",
+											"type": "String"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DelimitedText1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSynapseAnalyticsTable1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-10-23T11:43:53Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSynapseAnalyticsTable1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline_copy')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Data flow sales order header",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow_salesorderheader",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"sourcetablesalesorderheader": {},
+									"sinksynapsesalesordertable": {}
+								}
+							},
+							"staging": {
+								"linkedService": {
+									"referenceName": "ls_AzureDataLakeStorage1",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "udacitydemo52025/Staging"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					},
+					{
+						"name": "Data flow customer",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Data flow sales order header",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow_customer",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"sourcesqlcustomer": {},
+									"sinkcustomer": {}
+								}
+							},
+							"staging": {
+								"linkedService": {
+									"referenceName": "ls_AzureDataLakeStorage1",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "udacitydemo52025/Staging"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-10-23T10:21:51Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/dataflow_salesorderheader')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_AzureDataLakeStorage1')]",
+				"[concat(variables('factoryId'), '/dataflows/dataflow_customer')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline_test_agg')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "dataflow_agg_sales",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow_agg_sales",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"sourcesalesorderheader": {},
+									"sinkAzureSynapseSalesAggreate": {}
+								}
+							},
+							"staging": {
+								"linkedService": {
+									"referenceName": "ls_AzureDataLakeStorage1",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "udacitydemo52025/Staging"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-10-23T09:01:31Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/dataflow_agg_sales')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_Agency_md')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase_NYC",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "NYC_Payroll"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "AgencyID",
+						"type": "varchar"
+					},
+					{
+						"name": "AgencyName",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "NYC_Payroll_AGENCY_MD"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_NYC')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSynapseAnalyticsTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSynapseAnalytics1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "ID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Severity",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Start_Time",
+						"type": "nvarchar"
+					},
+					{
+						"name": "End_Time",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Start_Lat",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Start_Lng",
+						"type": "nvarchar"
+					},
+					{
+						"name": "End_Lat",
+						"type": "nvarchar"
+					},
+					{
+						"name": "End_Lng",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Distance(mi)",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Description",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Number",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Street",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Side",
+						"type": "nvarchar"
+					},
+					{
+						"name": "City",
+						"type": "nvarchar"
+					},
+					{
+						"name": "County",
+						"type": "nvarchar"
+					},
+					{
+						"name": "State",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Zipcode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Country",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Timezone",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Airport_Code",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Weather_Timestamp",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Temperature(F)",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Wind_Chill(F)",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Humidity(%)",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Pressure(in)",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Visibility(mi)",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Wind_Direction",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Wind_Speed(mph)",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Precipitation(in)",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Weather_Condition",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Amenity",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Bump",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Crossing",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Give_Way",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Junction",
+						"type": "nvarchar"
+					},
+					{
+						"name": "No_Exit",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Railway",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Roundabout",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Station",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Stop",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Traffic_Calming",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Traffic_Signal",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Turning_Loop",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Sunrise_Sunset",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Civil_Twilight",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Nautical_Twilight",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Astronomical_Twilight",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "staged_us_accident2"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSynapseAnalytics1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSynapseSalesAggreate')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSynapseAnalytics1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "CustomerID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TotalSales",
+						"type": "float",
+						"precision": 15
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "SalesAggregate"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSynapseAnalytics1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "us_accidents_small.csv",
+						"container": "udacitydemo52025"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\"",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "ID",
+						"type": "String"
+					},
+					{
+						"name": "Severity",
+						"type": "String"
+					},
+					{
+						"name": "Start_Time",
+						"type": "String"
+					},
+					{
+						"name": "End_Time",
+						"type": "String"
+					},
+					{
+						"name": "Start_Lat",
+						"type": "String"
+					},
+					{
+						"name": "Start_Lng",
+						"type": "String"
+					},
+					{
+						"name": "End_Lat",
+						"type": "String"
+					},
+					{
+						"name": "End_Lng",
+						"type": "String"
+					},
+					{
+						"name": "Distance(mi)",
+						"type": "String"
+					},
+					{
+						"name": "Description",
+						"type": "String"
+					},
+					{
+						"name": "Number",
+						"type": "String"
+					},
+					{
+						"name": "Street",
+						"type": "String"
+					},
+					{
+						"name": "Side",
+						"type": "String"
+					},
+					{
+						"name": "City",
+						"type": "String"
+					},
+					{
+						"name": "County",
+						"type": "String"
+					},
+					{
+						"name": "State",
+						"type": "String"
+					},
+					{
+						"name": "Zipcode",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "Timezone",
+						"type": "String"
+					},
+					{
+						"name": "Airport_Code",
+						"type": "String"
+					},
+					{
+						"name": "Weather_Timestamp",
+						"type": "String"
+					},
+					{
+						"name": "Temperature(F)",
+						"type": "String"
+					},
+					{
+						"name": "Wind_Chill(F)",
+						"type": "String"
+					},
+					{
+						"name": "Humidity(%)",
+						"type": "String"
+					},
+					{
+						"name": "Pressure(in)",
+						"type": "String"
+					},
+					{
+						"name": "Visibility(mi)",
+						"type": "String"
+					},
+					{
+						"name": "Wind_Direction",
+						"type": "String"
+					},
+					{
+						"name": "Wind_Speed(mph)",
+						"type": "String"
+					},
+					{
+						"name": "Precipitation(in)",
+						"type": "String"
+					},
+					{
+						"name": "Weather_Condition",
+						"type": "String"
+					},
+					{
+						"name": "Amenity",
+						"type": "String"
+					},
+					{
+						"name": "Bump",
+						"type": "String"
+					},
+					{
+						"name": "Crossing",
+						"type": "String"
+					},
+					{
+						"name": "Give_Way",
+						"type": "String"
+					},
+					{
+						"name": "Junction",
+						"type": "String"
+					},
+					{
+						"name": "No_Exit",
+						"type": "String"
+					},
+					{
+						"name": "Railway",
+						"type": "String"
+					},
+					{
+						"name": "Roundabout",
+						"type": "String"
+					},
+					{
+						"name": "Station",
+						"type": "String"
+					},
+					{
+						"name": "Stop",
+						"type": "String"
+					},
+					{
+						"name": "Traffic_Calming",
+						"type": "String"
+					},
+					{
+						"name": "Traffic_Signal",
+						"type": "String"
+					},
+					{
+						"name": "Turning_Loop",
+						"type": "String"
+					},
+					{
+						"name": "Sunrise_Sunset",
+						"type": "String"
+					},
+					{
+						"name": "Civil_Twilight",
+						"type": "String"
+					},
+					{
+						"name": "Nautical_Twilight",
+						"type": "String"
+					},
+					{
+						"name": "Astronomical_Twilight",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_salesorderheader')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_AzureSqlDatabase_sales",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "SalesOrderID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "RevisionNumber",
+						"type": "tinyint",
+						"precision": 3
+					},
+					{
+						"name": "OrderDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DueDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "ShipDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "Status",
+						"type": "tinyint",
+						"precision": 3
+					},
+					{
+						"name": "OnlineOrderFlag",
+						"type": "bit"
+					},
+					{
+						"name": "SalesOrderNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PurchaseOrderNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "AccountNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CustomerID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ShipToAddressID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "BillToAddressID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ShipMethod",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CreditCardApprovalCode",
+						"type": "varchar"
+					},
+					{
+						"name": "SubTotal",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "TaxAmt",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "Freight",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "TotalDue",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "Comment",
+						"type": "nvarchar"
+					},
+					{
+						"name": "rowguid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "SalesLT",
+					"table": "SalesOrderHeader"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_AzureSqlDatabase_sales')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sqldb_customer')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_AzureSqlDatabase_sales",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "CustomerID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "NameStyle",
+						"type": "bit"
+					},
+					{
+						"name": "Title",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FirstName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MiddleName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LastName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Suffix",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CompanyName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SalesPerson",
+						"type": "nvarchar"
+					},
+					{
+						"name": "EmailAddress",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Phone",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PasswordHash",
+						"type": "varchar"
+					},
+					{
+						"name": "PasswordSalt",
+						"type": "varchar"
+					},
+					{
+						"name": "rowguid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "SalesLT",
+					"table": "Customer"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_AzureSqlDatabase_sales')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_AzureSynapse_customer')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSynapseAnalytics1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "CustomerID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "NameStyle",
+						"type": "bit"
+					},
+					{
+						"name": "Title",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FirstName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MiddleName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LastName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Suffix",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CompanyName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SalesPerson",
+						"type": "nvarchar"
+					},
+					{
+						"name": "EmailAddress",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Phone",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PasswordHash",
+						"type": "varchar"
+					},
+					{
+						"name": "PasswordSalt",
+						"type": "varchar"
+					},
+					{
+						"name": "rowguid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Customer"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSynapseAnalytics1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_AzureSynapse_salesorderheader')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSynapseAnalytics1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "SalesOrderID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "RevisionNumber",
+						"type": "tinyint",
+						"precision": 3
+					},
+					{
+						"name": "OrderDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DueDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "ShipDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "Status",
+						"type": "tinyint",
+						"precision": 3
+					},
+					{
+						"name": "OnlineOrderFlag",
+						"type": "bit"
+					},
+					{
+						"name": "SalesOrderNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PurchaseOrderNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "AccountNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CustomerID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ShipToAddressID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "BillToAddressID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ShipMethod",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CreditCardApprovalCode",
+						"type": "varchar"
+					},
+					{
+						"name": "SubTotal",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "TaxAmt",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "Freight",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "TotalDue",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "Comment",
+						"type": "nvarchar"
+					},
+					{
+						"name": "rowguid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "SalesOrderHeader"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSynapseAnalytics1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase_NYC')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('AzureSqlDatabase_NYC_properties_typeProperties_server')]",
+					"database": "[parameters('AzureSqlDatabase_NYC_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('AzureSqlDatabase_NYC_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('AzureSqlDatabase_NYC_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSynapseAnalytics1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"server": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_server')]",
+					"database": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SystemAssignedManagedIdentity"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ls_AzureDataLakeStorage1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_AzureSqlDatabase_sales')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('ls_AzureSqlDatabase_sales_properties_typeProperties_server')]",
+					"database": "[parameters('ls_AzureSqlDatabase_sales_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('ls_AzureSqlDatabase_sales_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ls_AzureSqlDatabase_sales_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow_agg_sales')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_salesorderheader",
+								"type": "DatasetReference"
+							},
+							"name": "sourcesalesorderheader"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "AzureSynapseSalesAggreate",
+								"type": "DatasetReference"
+							},
+							"name": "sinkAzureSynapseSalesAggreate",
+							"rejectedDataLinkedService": {
+								"referenceName": "ls_AzureDataLakeStorage1",
+								"type": "LinkedServiceReference"
+							}
+						}
+					],
+					"transformations": [
+						{
+							"name": "filter1"
+						},
+						{
+							"name": "derivedColumn1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          SalesOrderID as integer,",
+						"          RevisionNumber as integer,",
+						"          OrderDate as timestamp,",
+						"          DueDate as timestamp,",
+						"          ShipDate as timestamp,",
+						"          Status as integer,",
+						"          OnlineOrderFlag as boolean,",
+						"          SalesOrderNumber as string,",
+						"          PurchaseOrderNumber as string,",
+						"          AccountNumber as string,",
+						"          CustomerID as integer,",
+						"          ShipToAddressID as integer,",
+						"          BillToAddressID as integer,",
+						"          ShipMethod as string,",
+						"          CreditCardApprovalCode as string,",
+						"          SubTotal as decimal(19,4),",
+						"          TaxAmt as decimal(19,4),",
+						"          Freight as decimal(19,4),",
+						"          TotalDue as decimal(19,4),",
+						"          Comment as string,",
+						"          rowguid as string,",
+						"          ModifiedDate as timestamp",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> sourcesalesorderheader",
+						"sourcesalesorderheader filter(SalesOrderID != 71774) ~> filter1",
+						"filter1 derive(TotalSales = SubTotal+TaxAmt+Freight) ~> derivedColumn1",
+						"derivedColumn1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          CustomerID as integer,",
+						"          TotalSales as double",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     staged: true,",
+						"     allowCopyCommand: true,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sinkAzureSynapseSalesAggreate"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_salesorderheader')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSynapseSalesAggreate')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow_agg_sales_param')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_salesorderheader",
+								"type": "DatasetReference"
+							},
+							"name": "sourcesalesorderheader"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "AzureSynapseSalesAggreate",
+								"type": "DatasetReference"
+							},
+							"name": "sinkAzureSynapseSalesAggreate",
+							"rejectedDataLinkedService": {
+								"referenceName": "ls_AzureDataLakeStorage1",
+								"type": "LinkedServiceReference"
+							}
+						}
+					],
+					"transformations": [
+						{
+							"name": "filter1"
+						},
+						{
+							"name": "derivedColumn1"
+						}
+					],
+					"scriptLines": [
+						"parameters{",
+						"     invalidSalesOrderID as integer (71774)",
+						"}",
+						"source(output(",
+						"          SalesOrderID as integer,",
+						"          RevisionNumber as integer,",
+						"          OrderDate as timestamp,",
+						"          DueDate as timestamp,",
+						"          ShipDate as timestamp,",
+						"          Status as integer,",
+						"          OnlineOrderFlag as boolean,",
+						"          SalesOrderNumber as string,",
+						"          PurchaseOrderNumber as string,",
+						"          AccountNumber as string,",
+						"          CustomerID as integer,",
+						"          ShipToAddressID as integer,",
+						"          BillToAddressID as integer,",
+						"          ShipMethod as string,",
+						"          CreditCardApprovalCode as string,",
+						"          SubTotal as decimal(19,4),",
+						"          TaxAmt as decimal(19,4),",
+						"          Freight as decimal(19,4),",
+						"          TotalDue as decimal(19,4),",
+						"          Comment as string,",
+						"          rowguid as string,",
+						"          ModifiedDate as timestamp",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> sourcesalesorderheader",
+						"sourcesalesorderheader filter(SalesOrderID != $invalidSalesOrderID) ~> filter1",
+						"filter1 derive(TotalSales = SubTotal+TaxAmt+Freight) ~> derivedColumn1",
+						"derivedColumn1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          CustomerID as integer,",
+						"          TotalSales as double",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     staged: true,",
+						"     allowCopyCommand: true,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sinkAzureSynapseSalesAggreate"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_salesorderheader')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSynapseSalesAggreate')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow_customer')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_sqldb_customer",
+								"type": "DatasetReference"
+							},
+							"name": "sourcesqlcustomer"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "ls_AzureSynapse_customer",
+								"type": "DatasetReference"
+							},
+							"name": "sinkcustomer"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(output(",
+						"          CustomerID as integer,",
+						"          NameStyle as boolean,",
+						"          Title as string,",
+						"          FirstName as string,",
+						"          MiddleName as string,",
+						"          LastName as string,",
+						"          Suffix as string,",
+						"          CompanyName as string,",
+						"          SalesPerson as string,",
+						"          EmailAddress as string,",
+						"          Phone as string,",
+						"          PasswordHash as string,",
+						"          PasswordSalt as string,",
+						"          rowguid as string,",
+						"          ModifiedDate as timestamp",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> sourcesqlcustomer",
+						"sourcesqlcustomer sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          CustomerID as integer,",
+						"          NameStyle as boolean,",
+						"          Title as string,",
+						"          FirstName as string,",
+						"          MiddleName as string,",
+						"          LastName as string,",
+						"          Suffix as string,",
+						"          CompanyName as string,",
+						"          SalesPerson as string,",
+						"          EmailAddress as string,",
+						"          Phone as string,",
+						"          PasswordHash as string,",
+						"          PasswordSalt as string,",
+						"          rowguid as string,",
+						"          ModifiedDate as timestamp",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     staged: true,",
+						"     allowCopyCommand: true,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sinkcustomer"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_sqldb_customer')]",
+				"[concat(variables('factoryId'), '/datasets/ls_AzureSynapse_customer')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow_salesorderheader')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_salesorderheader",
+								"type": "DatasetReference"
+							},
+							"name": "sourcetablesalesorderheader"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "ls_AzureSynapse_salesorderheader",
+								"type": "DatasetReference"
+							},
+							"name": "sinksynapsesalesordertable"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(output(",
+						"          SalesOrderID as integer,",
+						"          RevisionNumber as integer,",
+						"          OrderDate as timestamp,",
+						"          DueDate as timestamp,",
+						"          ShipDate as timestamp,",
+						"          Status as integer,",
+						"          OnlineOrderFlag as boolean,",
+						"          SalesOrderNumber as string,",
+						"          PurchaseOrderNumber as string,",
+						"          AccountNumber as string,",
+						"          CustomerID as integer,",
+						"          ShipToAddressID as integer,",
+						"          BillToAddressID as integer,",
+						"          ShipMethod as string,",
+						"          CreditCardApprovalCode as string,",
+						"          SubTotal as decimal(19,4),",
+						"          TaxAmt as decimal(19,4),",
+						"          Freight as decimal(19,4),",
+						"          TotalDue as decimal(19,4),",
+						"          Comment as string,",
+						"          rowguid as string,",
+						"          ModifiedDate as timestamp",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> sourcetablesalesorderheader",
+						"sourcetablesalesorderheader sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          SalesOrderID as integer,",
+						"          RevisionNumber as integer,",
+						"          OrderDate as timestamp,",
+						"          DueDate as timestamp,",
+						"          ShipDate as timestamp,",
+						"          Status as integer,",
+						"          OnlineOrderFlag as boolean,",
+						"          SalesOrderNumber as string,",
+						"          PurchaseOrderNumber as string,",
+						"          AccountNumber as string,",
+						"          CustomerID as integer,",
+						"          ShipToAddressID as integer,",
+						"          BillToAddressID as integer,",
+						"          ShipMethod as string,",
+						"          CreditCardApprovalCode as string,",
+						"          SubTotal as decimal(19,4),",
+						"          TaxAmt as decimal(19,4),",
+						"          Freight as decimal(19,4),",
+						"          TotalDue as decimal(19,4),",
+						"          Comment as string,",
+						"          rowguid as string,",
+						"          ModifiedDate as timestamp",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     staged: true,",
+						"     allowCopyCommand: true,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sinksynapsesalesordertable"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_salesorderheader')]",
+				"[concat(variables('factoryId'), '/datasets/ls_AzureSynapse_salesorderheader')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/powerquery1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "WranglingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"name": "ds_sqldb_customer",
+							"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> ds_sqldb_customer",
+							"dataset": {
+								"referenceName": "ds_sqldb_customer",
+								"type": "DatasetReference"
+							}
+						}
+					],
+					"script": "section Section1;\r\nshared ds_sqldb_customer = let AdfDoc = Sql.Database(\"udacitydemo202510.database.windows.net\", \"udacitydemo\", [CreateNavigationProperties = false]), InputTable = AdfDoc{[Schema=\"SalesLT\",Item=\"Customer\"]}[Data] in InputTable;\r\nshared UserQuery = let Source = #\"ds_sqldb_customer\" in Source;\r\n",
+					"documentLocale": "en-us"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_sqldb_customer')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_Pa')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase_NYC",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "NYC_Payroll"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "FiscalYear",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PayrollNumber",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "AgencyID",
+						"type": "varchar"
+					},
+					{
+						"name": "AgencyName",
+						"type": "varchar"
+					},
+					{
+						"name": "EmployeeID",
+						"type": "varchar"
+					},
+					{
+						"name": "LastName",
+						"type": "varchar"
+					},
+					{
+						"name": "FirstName",
+						"type": "varchar"
+					},
+					{
+						"name": "AgencyStartDate",
+						"type": "date"
+					},
+					{
+						"name": "WorkLocationBorough",
+						"type": "varchar"
+					},
+					{
+						"name": "TitleCode",
+						"type": "varchar"
+					},
+					{
+						"name": "TitleDescription",
+						"type": "varchar"
+					},
+					{
+						"name": "LeaveStatusasofJune30",
+						"type": "varchar"
+					},
+					{
+						"name": "BaseSalary",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "PayBasis",
+						"type": "varchar"
+					},
+					{
+						"name": "RegularHours",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "RegularGrossPaid",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "OTHours",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "TotalOTPaid",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "TotalOtherPay",
+						"type": "float",
+						"precision": 15
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "NYC_Payroll_Data_2020"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_NYC')]"
+			]
+		}
+	]
+}
