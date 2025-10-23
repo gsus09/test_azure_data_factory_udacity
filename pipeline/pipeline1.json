@@ -1,0 +1,528 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowCopyCommand": true
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Severity",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Severity",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Start_Time",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Start_Time",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "End_Time",
+									"type": "String"
+								},
+								"sink": {
+									"name": "End_Time",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Start_Lat",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Start_Lat",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Start_Lng",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Start_Lng",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "End_Lat",
+									"type": "String"
+								},
+								"sink": {
+									"name": "End_Lat",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "End_Lng",
+									"type": "String"
+								},
+								"sink": {
+									"name": "End_Lng",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Distance(mi)",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Distance(mi)",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Description",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Description",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Number",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Street",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Street",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Side",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Side",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "City",
+									"type": "String"
+								},
+								"sink": {
+									"name": "City",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "County",
+									"type": "String"
+								},
+								"sink": {
+									"name": "County",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "State",
+									"type": "String"
+								},
+								"sink": {
+									"name": "State",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Zipcode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Zipcode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Country",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Country",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Timezone",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Timezone",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Airport_Code",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Airport_Code",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Weather_Timestamp",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Weather_Timestamp",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Temperature(F)",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Temperature(F)",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Wind_Chill(F)",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Wind_Chill(F)",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Humidity(%)",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Humidity(%)",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Pressure(in)",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Pressure(in)",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Visibility(mi)",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Visibility(mi)",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Wind_Direction",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Wind_Direction",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Wind_Speed(mph)",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Wind_Speed(mph)",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Precipitation(in)",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Precipitation(in)",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Weather_Condition",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Weather_Condition",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Amenity",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Amenity",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Bump",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Bump",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Crossing",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Crossing",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Give_Way",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Give_Way",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Junction",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Junction",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "No_Exit",
+									"type": "String"
+								},
+								"sink": {
+									"name": "No_Exit",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Railway",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Railway",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Roundabout",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Roundabout",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Station",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Station",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Stop",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Stop",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Traffic_Calming",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Traffic_Calming",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Traffic_Signal",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Traffic_Signal",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Turning_Loop",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Turning_Loop",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Sunrise_Sunset",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Sunrise_Sunset",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Civil_Twilight",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Civil_Twilight",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Nautical_Twilight",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Nautical_Twilight",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Astronomical_Twilight",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Astronomical_Twilight",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSynapseAnalyticsTable1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-10-23T11:43:53Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

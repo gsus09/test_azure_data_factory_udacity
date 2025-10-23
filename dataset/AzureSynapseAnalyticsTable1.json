@@ -1,0 +1,206 @@
+{
+	"name": "AzureSynapseAnalyticsTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSynapseAnalytics1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Severity",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Start_Time",
+				"type": "nvarchar"
+			},
+			{
+				"name": "End_Time",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Start_Lat",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Start_Lng",
+				"type": "nvarchar"
+			},
+			{
+				"name": "End_Lat",
+				"type": "nvarchar"
+			},
+			{
+				"name": "End_Lng",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Distance(mi)",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Description",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Number",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Street",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Side",
+				"type": "nvarchar"
+			},
+			{
+				"name": "City",
+				"type": "nvarchar"
+			},
+			{
+				"name": "County",
+				"type": "nvarchar"
+			},
+			{
+				"name": "State",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Zipcode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Country",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Timezone",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Airport_Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Weather_Timestamp",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Temperature(F)",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Wind_Chill(F)",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Humidity(%)",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Pressure(in)",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Visibility(mi)",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Wind_Direction",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Wind_Speed(mph)",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Precipitation(in)",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Weather_Condition",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Amenity",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Bump",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Crossing",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Give_Way",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Junction",
+				"type": "nvarchar"
+			},
+			{
+				"name": "No_Exit",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Railway",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Roundabout",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Station",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Stop",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Traffic_Calming",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Traffic_Signal",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Turning_Loop",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Sunrise_Sunset",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Civil_Twilight",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Nautical_Twilight",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Astronomical_Twilight",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "staged_us_accident2"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

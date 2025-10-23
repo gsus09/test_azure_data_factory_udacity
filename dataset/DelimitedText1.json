@@ -1,0 +1,213 @@
+{
+	"name": "DelimitedText1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "us_accidents_small.csv",
+				"container": "udacitydemo52025"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\"",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "ID",
+				"type": "String"
+			},
+			{
+				"name": "Severity",
+				"type": "String"
+			},
+			{
+				"name": "Start_Time",
+				"type": "String"
+			},
+			{
+				"name": "End_Time",
+				"type": "String"
+			},
+			{
+				"name": "Start_Lat",
+				"type": "String"
+			},
+			{
+				"name": "Start_Lng",
+				"type": "String"
+			},
+			{
+				"name": "End_Lat",
+				"type": "String"
+			},
+			{
+				"name": "End_Lng",
+				"type": "String"
+			},
+			{
+				"name": "Distance(mi)",
+				"type": "String"
+			},
+			{
+				"name": "Description",
+				"type": "String"
+			},
+			{
+				"name": "Number",
+				"type": "String"
+			},
+			{
+				"name": "Street",
+				"type": "String"
+			},
+			{
+				"name": "Side",
+				"type": "String"
+			},
+			{
+				"name": "City",
+				"type": "String"
+			},
+			{
+				"name": "County",
+				"type": "String"
+			},
+			{
+				"name": "State",
+				"type": "String"
+			},
+			{
+				"name": "Zipcode",
+				"type": "String"
+			},
+			{
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "Timezone",
+				"type": "String"
+			},
+			{
+				"name": "Airport_Code",
+				"type": "String"
+			},
+			{
+				"name": "Weather_Timestamp",
+				"type": "String"
+			},
+			{
+				"name": "Temperature(F)",
+				"type": "String"
+			},
+			{
+				"name": "Wind_Chill(F)",
+				"type": "String"
+			},
+			{
+				"name": "Humidity(%)",
+				"type": "String"
+			},
+			{
+				"name": "Pressure(in)",
+				"type": "String"
+			},
+			{
+				"name": "Visibility(mi)",
+				"type": "String"
+			},
+			{
+				"name": "Wind_Direction",
+				"type": "String"
+			},
+			{
+				"name": "Wind_Speed(mph)",
+				"type": "String"
+			},
+			{
+				"name": "Precipitation(in)",
+				"type": "String"
+			},
+			{
+				"name": "Weather_Condition",
+				"type": "String"
+			},
+			{
+				"name": "Amenity",
+				"type": "String"
+			},
+			{
+				"name": "Bump",
+				"type": "String"
+			},
+			{
+				"name": "Crossing",
+				"type": "String"
+			},
+			{
+				"name": "Give_Way",
+				"type": "String"
+			},
+			{
+				"name": "Junction",
+				"type": "String"
+			},
+			{
+				"name": "No_Exit",
+				"type": "String"
+			},
+			{
+				"name": "Railway",
+				"type": "String"
+			},
+			{
+				"name": "Roundabout",
+				"type": "String"
+			},
+			{
+				"name": "Station",
+				"type": "String"
+			},
+			{
+				"name": "Stop",
+				"type": "String"
+			},
+			{
+				"name": "Traffic_Calming",
+				"type": "String"
+			},
+			{
+				"name": "Traffic_Signal",
+				"type": "String"
+			},
+			{
+				"name": "Turning_Loop",
+				"type": "String"
+			},
+			{
+				"name": "Sunrise_Sunset",
+				"type": "String"
+			},
+			{
+				"name": "Civil_Twilight",
+				"type": "String"
+			},
+			{
+				"name": "Nautical_Twilight",
+				"type": "String"
+			},
+			{
+				"name": "Astronomical_Twilight",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

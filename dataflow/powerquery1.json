@@ -1,0 +1,20 @@
+{
+	"name": "powerquery1",
+	"properties": {
+		"type": "WranglingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "ds_sqldb_customer",
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> ds_sqldb_customer",
+					"dataset": {
+						"referenceName": "ds_sqldb_customer",
+						"type": "DatasetReference"
+					}
+				}
+			],
+			"script": "section Section1;\r\nshared ds_sqldb_customer = let AdfDoc = Sql.Database(\"udacitydemo202510.database.windows.net\", \"udacitydemo\", [CreateNavigationProperties = false]), InputTable = AdfDoc{[Schema=\"SalesLT\",Item=\"Customer\"]}[Data] in InputTable;\r\nshared UserQuery = let Source = #\"ds_sqldb_customer\" in Source;\r\n",
+			"documentLocale": "en-us"
+		}
+	}
+}

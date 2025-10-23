@@ -1,0 +1,9 @@
+{
+	"name": "udacitydemo",
+	"location": "northeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "63496376-3fea-45f0-824b-2aadbe9ab7d8",
+		"tenantId": "782109da-5877-4632-9b9c-60065ac50a21"
+	}
+}
