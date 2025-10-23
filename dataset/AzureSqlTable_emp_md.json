@@ -1,0 +1,32 @@
+{
+	"name": "AzureSqlTable_emp_md",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_NYC",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "NYC_Payroll"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "EmployeeID",
+				"type": "varchar"
+			},
+			{
+				"name": "LastName",
+				"type": "varchar"
+			},
+			{
+				"name": "FirstName",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "NYC_Payroll_EMP_MD"
+		}
+	}
+}
