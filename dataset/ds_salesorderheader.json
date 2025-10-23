@@ -5,6 +5,9 @@
 			"referenceName": "ls_AzureSqlDatabase_sales",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Exercise"
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
