@@ -32,7 +32,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "DelimitedText2",
+						"referenceName": "DelimitedText_DirStaging",
 						"type": "DatasetReference"
 					},
 					"name": "DirStagingCSV"

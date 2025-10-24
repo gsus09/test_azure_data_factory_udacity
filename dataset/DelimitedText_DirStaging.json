@@ -1,9 +1,12 @@
 {
-	"name": "DelimitedText2",
+	"name": "DelimitedText_DirStaging",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "NYC_Payroll"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
