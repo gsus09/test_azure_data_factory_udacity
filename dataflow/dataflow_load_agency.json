@@ -1,0 +1,53 @@
+{
+	"name": "dataflow_load_agency",
+	"properties": {
+		"folder": {
+			"name": "NYC_Payroll"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText_AgencyMaster",
+						"type": "DatasetReference"
+					},
+					"name": "AgencyMastercsv"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable_Agency_md",
+						"type": "DatasetReference"
+					},
+					"name": "AgencySQL"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          AgencyID as string,",
+				"          AgencyName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> AgencyMastercsv",
+				"AgencyMastercsv sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          AgencyID as string,",
+				"          AgencyName as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> AgencySQL"
+			]
+		}
+	}
+}

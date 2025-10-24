@@ -1,0 +1,17 @@
+{
+	"name": "dataflow_summary",
+	"properties": {
+		"folder": {
+			"name": "NYC_Payroll"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				""
+			]
+		}
+	}
+}

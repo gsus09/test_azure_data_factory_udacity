@@ -1,0 +1,55 @@
+{
+	"name": "dataflow_load_emp",
+	"properties": {
+		"folder": {
+			"name": "NYC_Payroll"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText_EmpMaster",
+						"type": "DatasetReference"
+					},
+					"name": "empMasterCSV"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable_emp_md",
+						"type": "DatasetReference"
+					},
+					"name": "empSQL"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          EmployeeID as string,",
+				"          LastName as string,",
+				"          FirstName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> empMasterCSV",
+				"empMasterCSV sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          EmployeeID as string,",
+				"          LastName as string,",
+				"          FirstName as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> empSQL"
+			]
+		}
+	}
+}

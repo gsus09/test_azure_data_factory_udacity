@@ -1,0 +1,53 @@
+{
+	"name": "dataflow_load_title",
+	"properties": {
+		"folder": {
+			"name": "NYC_Payroll"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText_TitleMaster",
+						"type": "DatasetReference"
+					},
+					"name": "titleMasterCSV"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable_title_md",
+						"type": "DatasetReference"
+					},
+					"name": "titleSQL"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          TitleCode as string,",
+				"          TitleDescription as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> titleMasterCSV",
+				"titleMasterCSV sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          TitleCode as string,",
+				"          TitleDescription as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> titleSQL"
+			]
+		}
+	}
+}

@@ -1,5 +1,5 @@
 {
-	"name": "dataflow1",
+	"name": "dataflow_load_payroll_2021",
 	"properties": {
 		"folder": {
 			"name": "NYC_Payroll"
