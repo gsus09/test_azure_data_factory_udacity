@@ -190,7 +190,10 @@
 						"referenceName": "dataflow_summary",
 						"type": "DataFlowReference",
 						"parameters": {
-							"dataflow_param_fiscalyear": 2020
+							"dataflow_param_fiscalyear": {
+								"value": "@pipeline().parameters.pipeline_param_fiscalyear",
+								"type": "Expression"
+							}
 						}
 					},
 					"compute": {
@@ -201,6 +204,12 @@
 				}
 			}
 		],
+		"parameters": {
+			"pipeline_param_fiscalyear": {
+				"type": "int",
+				"defaultValue": 2020
+			}
+		},
 		"folder": {
 			"name": "NYC_Payroll"
 		},
