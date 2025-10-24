@@ -1,6 +1,9 @@
 {
 	"name": "dataflow_customer",
 	"properties": {
+		"folder": {
+			"name": "Exercise"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [

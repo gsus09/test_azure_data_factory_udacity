@@ -1,6 +1,9 @@
 {
 	"name": "dataflow_agg_sales_param",
 	"properties": {
+		"folder": {
+			"name": "Exercise"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
