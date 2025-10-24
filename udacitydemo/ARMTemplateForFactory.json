@@ -3462,8 +3462,8 @@
 						"fileSystem": "adlsnycpayroll-martin-t"
 					},
 					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
+					"escapeChar": "\"",
+					"firstRowAsHeader": false,
 					"quoteChar": "\""
 				},
 				"schema": []
