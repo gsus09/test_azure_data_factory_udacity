@@ -72,6 +72,9 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "Exercise"
+		},
 		"annotations": [],
 		"lastPublishTime": "2025-10-23T10:21:51Z"
 	},
